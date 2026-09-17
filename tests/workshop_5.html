@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cookie Test Page</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 40px;
+        }
+
+        button {
+            padding: 10px 20px;
+            margin-right: 10px;
+            cursor: pointer;
+        }
+
+        #result {
+            margin-top: 20px;
+            padding: 15px;
+            border: 1px solid #ccc;
+            min-height: 20px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1>Cookie Test Page</h1>
+
+    <button id="writeCookie">
+        Записать cookie
+    </button>
+
+    <button id="readCookie">
+        Прочитать cookie
+    </button>
+
+    <div id="result"></div>
+
+    <script>
+        const COOKIE_NAME = "testCookie";
+        const COOKIE_VALUE = "PlaywrightTest";
+
+        document
+            .getElementById("writeCookie")
+            .addEventListener("click", () => {
+
+                document.cookie =
+                    `${COOKIE_NAME}=${COOKIE_VALUE}; path=/`;
+
+                document.getElementById("result").textContent =
+                    "Cookie записан";
+            });
+
+        document
+            .getElementById("readCookie")
+            .addEventListener("click", () => {
+
+                const cookies = document.cookie.split("; ");
+
+                const cookie = cookies.find(row =>
+                    row.startsWith(`${COOKIE_NAME}=`)
+                );
+
+                const result = cookie
+                    ? cookie.split("=")[1]
+                    : "Cookie не найден";
+
+                document.getElementById("result").textContent =
+                    result;
+            });
+    </script>
+
+</body>
+</html>
